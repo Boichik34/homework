@@ -6,7 +6,7 @@ def decorator(funk):
     @wraps(funk)
     def wraper():
         print(time.ctime())
-        print(funk.__doc__)
+        print(wraper.__doc__)
         funk()
         print('-' * 30)
     return wraper
