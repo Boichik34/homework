@@ -3,4 +3,7 @@ note 2, tertretertret
 note 3, wereweet
 note 4, tertertertert
 note 5, gdfgdfgdfg
-note 6, rtertert
+note 7, dhfghfghfhfgghgg
+доделать приложение, добавить change note декораторы и доделать логику
+note 8, jhkhjkhjhjh
+rtretrtrt, rtert

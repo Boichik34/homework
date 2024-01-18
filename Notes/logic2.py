@@ -13,31 +13,29 @@ class Note:
         return self.__note
 
 
-class ListNotes:
+class List:
 
     def __init__(self, lst):
-        self.list_notes = lst
+        self.__list_notes = lst
 
-    @staticmethod
-    def get_list_note():
-        return list_notes.list_notes
+    def get_list_note(self):
+        return self.__list_notes
 
     def add_in_list(self, note):
-        self.list_notes[note.get_name()] = note.get_note()
+        self.__list_notes[note.get_name()] = note.get_note()
 
-    @staticmethod
-    def del_note(name):
-        del list_notes.list_notes[name]
+    def del_note(self, name):
+        del self.__list_notes[name]
 
 
 class App:
 
-    @staticmethod
-    def add_note(name, new_note):
+    @classmethod
+    def add_note(cls, name, new_note):
         note = Note(name, new_note)
         list_notes.add_in_list(note)
-        App.save_note(note)
-        return list_notes.list_notes
+        cls.save_note(note)
+        return list_notes.get_list_note()
 
     @staticmethod
     def get_list():
@@ -52,14 +50,14 @@ class App:
                 lst[lst_1[i]] = lst_1[i+1]
         return lst
 
-    @staticmethod
-    def del_note(key):
-        ListNotes.del_note(key)
-        App.save_change(key)
+    @classmethod
+    def del_note(cls, key):
+        list_notes.del_note(key)
+        cls.save_change(key)
 
     @staticmethod
     def save_change(key1, new_value=''):
-        lst = App.get_list()
+        lst = list_notes.get_list_note()
         file = open("text.txt", "w", encoding="utf8")
         for key, value in lst.items():
             if key != key1:
@@ -75,4 +73,4 @@ class App:
         file.close()
 
 
-list_notes = ListNotes(App.get_list())
+list_notes = List(App.get_list())

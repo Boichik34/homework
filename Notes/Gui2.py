@@ -1,6 +1,6 @@
 from tkinter import *
-from logic2 import App
-from logic2 import list_notes
+from logik import App
+from logik import list_notes
 from tkinter.messagebox import showinfo
 
 
