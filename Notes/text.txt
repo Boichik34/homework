@@ -7,3 +7,9 @@ note 7, dhfghfghfhfgghgg
 доделать приложение, добавить change note декораторы и доделать логику
 note 8, jhkhjkhjhjh
 rtretrtrt, rtert
+, 
+, 
+, 
+, 
+, 
+, 
