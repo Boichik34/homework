@@ -1,0 +1,88 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="button" onclick="swowText()">push</button>
+    <input id="input" type="text">
+    <script>
+        function swowText(){
+            let inp = document.getElementById("input");
+            let tex = inp.value
+            if (tex != "")
+            {
+                alert(tex);
+                inp.value = "";
+            }
+            
+            
+        }
+    </script>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="button" onclick="swowText(this)">push</button>
+    <button id="button" onclick="swowText(this)">push</button>
+    <button id="button" onclick="swowText(this)">push</button>
+    <input id="input" type="text">
+    <script>
+        function swowText(elrment){
+            let inp = document.getElementById("input");
+            let tex = inp.value;
+            
+            // let but = document.getElementById('button');
+            elrment.innerHTML = tex
+            
+            
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ol id="ol">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+    </ol>
+    <button id="red" onclick="change('red')">red</button>
+    <button id="green" onclick="change('green')">griin</button>
+    <script>
+       function change(color)
+       {
+        let ol = document.getElementById('ol');
+        ol.style.color = color;
+        ol.style.backgroundColor = 'yellow';
+        console.error(color);
+       }
+    </script>
+</body>
+</html>

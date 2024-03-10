@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookCatalog</title>
     <script type="text/javascript" src="/eel.js"></script>
+    <script src="scripts.js" defer></script>
     <link  rel="stylesheet" href="style.css">
+   
 </head>
 <body>
     <div id="buttons">
         <p>Название: <input type="text" id="book_name"></p>
         <p>Автор: <input type="text" id="book_autor"></p>
         <p>Год издания: <input type="number" id="book_year"></p>
-        <p>Жанр: <input type="text" id="book_genre"></p><br>
-        <button id="addbutton">Добавить</button>
+        <p>Жанр: <input type="text" id="book_genre"></p>
+        <p>Статус: Прочитано<input type="checkbox" id="book_status">Не прочитано<input type="checkbox" id="book_status"></p>
+        <br>
+        <button id="addbutton" onclick="add_new_element()">Добавить</button>
         <button id="searchbutton">Найти</button>
         <button id="delitebutton">Удалить</button>
     </div>
@@ -25,52 +29,16 @@
                 <th>Автор</th>
                 <th>Год издания</th>
                 <th>Жанр</th>
+                <th>Статус</th>
             </tr>
         </thead>
         <tbody id="addtable">
-            <tr>
-                <td>Идиот</td>
-                <td>Достоевский</td>
-                <td>1869</td>
-                <td>Роман</td>
-            </tr>
-            <tr>
-                <td>Идиот</td>
-                <td>Достоевский</td>
-                <td>1869</td>
-                <td>Роман</td>
-            </tr>
-            <tr>
-                <td>Идиот</td>
-                <td>Достоевский</td>
-                <td>1869</td>
-                <td>Роман</td>
-            </tr>
-            <tr>
-                <td>Идиот</td>
-                <td>Достоевский</td>
-                <td>1869</td>
-                <td>Роман</td>
-            </tr>
-            <tr>
-                <td>Идиот</td>
-                <td>Достоевский</td>
-                <td>1869</td>
-                <td>Роман</td>
-            </tr>
-            <tr>
-                <td>Идиот</td>
-                <td>Достоевский</td>
-                <td>1869</td>
-                <td>Роман</td>
-            </tr>
         </tbody>
-    </table>    
-    <table class="table">
+    <!-- </table>    
+    <table class="table" >
         <tbody id="addtable">
            
         </tbody>
-    </table>    
-    <script src="scripts.js"></script>
+    </table>     -->
 </body>
 </html>
