@@ -1,6 +1,6 @@
 import telebot
 import logic
-from  player import Player, PlayGuessNumber, PlayGuessCity
+from  player_and_game import Player, PlayGuessNumber, PlayGuessCity
 
 TOKEN = ""
 
@@ -12,7 +12,8 @@ min = None
 max = None
 player = None
 game = None
-country_list = ['Венесуэла.', 'Вьетнам.', 'Мальдивы.', 'Индонезия.', 'Комбоджа.', 'Франция.', 'Филиппины.', 'Бора-Бора.']
+country_list = ['Венесуэла.', 'Вьетнам.', 'Мальдивы.', 'Индонезия.',
+                'Комбоджа.', 'Франция.', 'Филиппины.', 'Бора-Бора.']
 
 
 @bot.message_handler(commands=["start", "back"])
@@ -21,27 +22,45 @@ def start_handler(message):
     if not player:
         player = Player(message.from_user.id)
     markup = logic.create_main_menu()
-    bot.send_message(message.chat.id, f"Привет, {message.from_user.first_name}, Твой текущий рекорд:  {player.get_record()}! \n Во что хочешь сыграть?", reply_markup=markup)
+    bot.send_message(message.chat.id, f"Привет, {message.from_user.first_name},"
+                                      f"Твой текущий рекорд:  {player.get_record()}! \n"
+                                      f"Во что хочешь сыграть?", reply_markup=markup)
 
 
-@bot.callback_query_handler(func=lambda call: call.data in ["Угадай число", "Угадай страну"])
+def restart(message):
+    markup = logic.create_main_menu()
+    bot.send_message(message.chat.id, 'Попробушь еще раз?', reply_markup=markup)
+
+@bot.callback_query_handler(func=lambda call: call.data in ["Угадай число",
+                                                            "Угадай страну"])
 def chose_game(call):
     if call.data == "Угадай страну":
         markup = logic.markup_for_confirmation_country()
-        bot.send_message(call.message.chat.id, "У тебя будет пять попыток угадать страну по фотографии. Поехали?", reply_markup=markup)
+        bot.send_message(call.message.chat.id, "У тебя будет пять попыток угадать"
+                                               "страну по фотографии. Поехали?",
+                         reply_markup=markup)
     if call.data == "Угадай число":
         markup = logic.markup_for_confirmation_number()
-        bot.send_message(call.message.chat.id, "Попробуй угадать число в заданном тобой диапазоне, который будет сокращаться до твоей неверной попытки.", reply_markup=markup)
+        bot.send_message(call.message.chat.id, "Попробуй угадать число"
+                                               "в заданном тобой диапазоне,"
+                                               "который будет сокращаться"
+                                               "до твоей неверной попытки.",
+                         reply_markup=markup)
 
 
-@bot.callback_query_handler(func=lambda call: call.data in ["Да граем", "Нет не играем", "Нет"])
+@bot.callback_query_handler(func=lambda call: call.data in ["Да граем",
+                                                            "Нет не играем",
+                                                            "Нет"])
 def btn_some_callback(call):
     if call.data == "Да граем":
-        bot.send_message(call.message.chat.id, "Выберите два числа, которые будут минимальной и максимальной границей поиска")
+        bot.send_message(call.message.chat.id, "Выберите два числа, которые"
+                                               "будут минимальной и максимальной"
+                                               "границей поиска")
     elif call.data == "Нет не играем" or call.data == "Нет":
         bot.send_message(call.message.chat.id, "Жаль")
         markup = logic.create_main_menu()
-        bot.send_message(call.message.chat.id, "Во что поиграем?", reply_markup=markup)
+        bot.send_message(call.message.chat.id, "Во что поиграем?",
+                         reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: call.data in ["Да"])
@@ -49,25 +68,17 @@ def chose_play_in_city(call):
     global game_guess_city
     game_guess_city = PlayGuessCity()
     photo = open(f'./image/tay{game_guess_city.get_game_step()}.jpg', 'rb')
-    bot.send_photo(call.message.chat.id, photo, "Попробуй угадать без подсказки. Напиши свой вариант.")
-
-
-@bot.callback_query_handler(func=lambda call: call.data in [country_list])
-def continue_guess_city(call):
-    show_next_picture(call.message)
+    bot.send_photo(call.message.chat.id, photo, "Попробуй угадать без"
+                                                "подсказки. Напиши свой вариант.")
 
 
 def show_next_picture(message):
     global game_guess_city
     game_guess_city.set_game_step()
-    print(game_guess_city.get_game_step())
-    if game_guess_city.get_game_step() <= 5:
-        photo = open(f'./image/tay{game_guess_city.get_game_step()}.jpg', 'rb')
-        markup = logic.markup_for_guess_city()
-        bot.send_photo(message.chat.id, photo, "Твой выбор?", reply_markup=markup)
-    else:
-        markup = logic.clear_markup()
-        bot.send_message(message.chat.id, 'Это был Таиланд', reply_markup=markup)
+    photo = open(f'./image/tay{game_guess_city.get_game_step()}.jpg', 'rb')
+    markup = logic.markup_for_guess_city()
+    bot.send_photo(message.chat.id, photo, "Твой выбор?", reply_markup=markup)
+
 
 @bot.message_handler(content_types=["text"])
 def input_limit_handler(message):
@@ -76,19 +87,28 @@ def input_limit_handler(message):
     global player
 
     if game_guess_city:
-        if message.text in country_list:
-            bot.send_message(message.chat.id, 'Ошибочка, посмотри следующие картинки.')
-            return show_next_picture(message)
-        if message.text.lower() in ['тайланд', 'таиланд', 'thailand', 'иордания', 'jordan']:
-            player.save_record(100)
+        if message.text.lower() in ['тайланд', 'таиланд', 'thailand',
+                                    'иордания', 'jordan', 'таиланд.']:
+            record = game_guess_city.calculate_record()
+            player.save_record(record)
+            markup = logic.clear_markup()
             bot.send_message(message.chat.id, f"Браво!!!\n"
-                                              f"Твой рекорд увеличился на 100 баллов."
-                                              f"Теперь он равен {player.get_record()}")
-            return start_handler(message)
+                                              f"Твой рекорд увеличился на"
+                                              f"{record} баллов."
+                                              f"Теперь он равен {player.get_record()}",
+                             reply_markup=markup)
+            game_guess_city = None
+            return restart(message)
         else:
-            bot.send_message(message.chat.id, 'Ошибочка, посмотри следующие картинки.')
-            return show_next_picture(message)
-
+            if game_guess_city.get_game_step() < 5:
+                bot.send_message(message.chat.id, 'Ошибочка, посмотри'
+                                                  'следующие картинки.')
+                return show_next_picture(message)
+            else:
+                markup = logic.clear_markup()
+                bot.send_message(message.chat.id, 'Это был Таиланд',
+                                 reply_markup=markup)
+                return restart(message)
     if not game:
         str = message.text
         limit_number = logic.get_limit_number(str)
@@ -125,7 +145,6 @@ def input_limit_handler(message):
                                               f"Теперь твой рекорд: {player.get_record()}.\n"
                                               f"В какую игру сыграешь теперь?", reply_markup=markup)
             game = None
-
         elif num > TARGET:
             game.set_count_attempt()
             max = num
@@ -137,11 +156,13 @@ def input_limit_handler(message):
 
 
 def print_input(message, min, max):
-    bot.send_message(message.chat.id, f"Введите число от {min} до {max}")
+    bot.send_message(message.chat.id, f"Введите число"
+                                      f"от {min} до {max}")
 
 
 def repeat_input(message):
-    bot.send_message(message.chat.id, "Неверный ввод. Введите два числа через пробел или запятую")
+    bot.send_message(message.chat.id, "Неверный ввод. Введите два"
+                                      "числа через пробел или запятую")
 
 
 bot.infinity_polling()
