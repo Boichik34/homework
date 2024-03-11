@@ -2,7 +2,7 @@ import telebot
 import logic
 from  player import Player, PlayGuessNumber, PlayGuessCity
 
-TOKEN = "6356460604:AAHppVm6NbTsItuRUnRHqPNuzJIckVz_7-Y"
+TOKEN = ""
 
 bot = telebot.TeleBot(TOKEN)
 
