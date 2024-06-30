@@ -17,6 +17,9 @@ class LinkedList:
         self.head = None
         self.tail = None
         self._size = 0
+        self.iterators = {1: LeftRightIteratorStrategy,
+                          2: RightLeftIteratorStrategy,
+                          3: CenterIteratorStrategy}
 
     def get_size(self):
         return self._size
@@ -35,12 +38,7 @@ class LinkedList:
         self._size += 1
 
     def __iter__(self):
-        if self._type_iterator == 1:
-            return LeftRightIteratorStrategy(self)
-        if self._type_iterator == 2:
-            return RightLeftIteratorStrategy(self)
-        if self._type_iterator == 3:
-            return CenterIteratorStrategy(self)
+        return self.iterators[self._type_iterator](self)
 
 
 class IIteratorStrategy(ABC):
@@ -157,7 +155,7 @@ class CenterIteratorStrategy(IIteratorStrategy):
             raise StopIteration
 
 
-lst = LinkedList(1)
+lst = LinkedList(3)
 lst.add(1)
 lst.add(2)
 lst.add(3)
