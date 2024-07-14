@@ -134,18 +134,15 @@ class CenterIteratorStrategy(IIteratorStrategy):
                     return result
                 else:
                     if self._collection.get_size() % 2 != 0:
-                        while self._index <= self._collection.get_size() // 2:
-                            result = self._center_right_link.get_data()
-                            self._center_right_link = self._center_right_link.prev
-                            self._index += 1
-                            return result
+                        center = self._collection.get_size() // 2
+                    else:
+                        center = self._collection.get_size() // 2 - 1
 
-                    if self._collection.get_size() % 2 == 0:
-                        while self._index <= self._collection.get_size() // 2 - 1:
-                            result = self._center_right_link.get_data()
-                            self._center_right_link = self._center_right_link.prev
-                            self._index += 1
-                            return result
+                    while self._index <= center:
+                        result = self._center_right_link.get_data()
+                        self._center_right_link = self._center_right_link.prev
+                        self._index += 1
+                        return result
 
                     result = self._center_left_link.get_data()
                     self._center_left_link = self._center_left_link.next
