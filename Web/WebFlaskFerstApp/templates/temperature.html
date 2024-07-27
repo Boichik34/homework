@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Конвертер температур
+{% endblock%}
+
+{% block body%}
+<div class="container mt-5">
+    <form method="post">
+      <input type='number' id="temperature" name="temperature" class="form-control" required placeholder="Введите градусы в Цельсиях"><br>
+        <button type="submit" name="Kelvin" id="Kelvin" class="btn btn-success">конвертировать в Кельвины</button>
+        <button type="submit" name="Fahrenheit" id="Fahrenheit"class="btn btn-success">конвертировать в Фаренгейты</button>
+
+    </form>
+</div>
+
+{% endblock%}

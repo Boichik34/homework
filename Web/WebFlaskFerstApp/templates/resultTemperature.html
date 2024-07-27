@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block title%}
+   Результат
+{% endblock%}
+
+{% block body%}
+ <div class="alert alert-info">
+   <h1> Результат: {{newtemperature}} градусов по {{scale}}</h1>
+     <a href="/temperature" class="btn btn-success">Назад</a>
+ </div>
+{% endblock%}
